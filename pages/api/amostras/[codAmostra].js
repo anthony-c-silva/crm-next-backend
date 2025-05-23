@@ -1,5 +1,6 @@
 import cors from '../../../utils/cors';
 import { readJson, writeJson } from '../../../utils/jsonHandler';
+
 /**
  * @swagger
  * /amostras/{codAmostra}:
@@ -60,20 +61,6 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
 
 export default async function handler(req, res) {
     await cors(req, res);
-    const origin = req.headers.origin;
-    if (
-        ['http://localhost:3000', 'http://192.168.1.196:3000'].includes(origin)
-    ) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET,POST,PUT,PATCH,DELETE,OPTIONS'
-    );
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Authorization'
-    );
     if (req.method === 'OPTIONS') return res.status(200).end();
 
     const { codAmostra } = req.query;
@@ -88,7 +75,11 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
-        amostras[idx] = { ...amostras[idx], ...req.body };
+        // Mantém o createdAt original e apenas mescla demais campos
+        amostras[idx] = {
+            ...amostras[idx],
+            ...req.body,
+        };
         await writeJson(file, amostras);
         return res.status(200).json(amostras[idx]);
     }

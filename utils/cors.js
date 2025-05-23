@@ -6,6 +6,7 @@ import initMiddleware from './init-middleware';
 const cors = initMiddleware(
     Cors({
         origin: '*',
+        
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     })

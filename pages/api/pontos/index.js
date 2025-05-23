@@ -1,6 +1,7 @@
 import cors from '../../../utils/cors';
 import { readJson, writeJson } from '../../../utils/jsonHandler';
 import { v4 as uuidv4 } from 'uuid';
+
 /**
  * @swagger
  * /pontos:
@@ -38,20 +39,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default async function handler(req, res) {
     await cors(req, res);
-    const origin = req.headers.origin;
-    if (
-        ['http://localhost:3000', 'http://192.168.1.196:3000'].includes(origin)
-    ) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET,POST,PUT,PATCH,DELETE,OPTIONS'
-    );
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Authorization'
-    );
     if (req.method === 'OPTIONS') return res.status(200).end();
 
     const file = 'pontosColeta.json';
@@ -64,6 +51,11 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { Nome, cep, Estado, Cidade, Bairro, Rua, Numero, Complemento } =
             req.body;
+
+        const now = new Date();
+        const localOffsetMs = now.getTimezoneOffset() * 60000;
+        const localTime = new Date(now.getTime() - localOffsetMs);
+        const createdAt = localTime.toISOString().replace('Z', '+03:00');
         const novo = {
             ID: uuidv4(),
             Nome,
@@ -74,7 +66,9 @@ export default async function handler(req, res) {
             Rua,
             Numero,
             Complemento,
+            createdAt,
         };
+
         pontos.push(novo);
         await writeJson(file, pontos);
         return res.status(201).json(novo);

@@ -11,7 +11,7 @@ const options = {
                 'Documentação dos endpoints de Amostras e Pontos de Coleta',
         },
         servers: [
-            { url: 'http://localhost:3001/api', description: 'Servidor local' },
+            { url: 'http://localhost:3002/api', description: 'Servidor local' },
         ],
         tags: [
             { name: 'Amostras', description: 'Operações com amostras' },
@@ -24,6 +24,11 @@ const options = {
                     properties: {
                         CodAmostra: { type: 'string', format: 'uuid' },
                         IDPontoColeta: { type: 'string' },
+                        createdAt: {
+                            type: 'string',
+                            format: 'date-time',
+                            description: 'Data/hora de criação (fuso -03:00)',
+                        },
                     },
                 },
                 AmostraInput: {
@@ -45,6 +50,11 @@ const options = {
                         Rua: { type: 'string' },
                         Numero: { type: 'integer' },
                         Complemento: { type: 'string' },
+                        createdAt: {
+                            type: 'string',
+                            format: 'date-time',
+                            description: 'Timestamp ISO de criação',
+                        },
                     },
                 },
                 PontoInput: {
