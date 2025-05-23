@@ -22,19 +22,17 @@ const options = {
                 Amostra: {
                     type: 'object',
                     properties: {
-                        CodAmostra: { type: 'string', format: 'uuid' },
+                        IdAmostra: { type: 'string', format: 'uuid' },
+                        CodAmostra: { type: 'string' },
                         IDPontoColeta: { type: 'string' },
-                        createdAt: {
-                            type: 'string',
-                            format: 'date-time',
-                            description: 'Data/hora de criação (fuso -03:00)',
-                        },
+                        createdAt: { type: 'string', format: 'date-time' },
                     },
                 },
                 AmostraInput: {
                     type: 'object',
-                    required: ['IDPontoColeta'],
+                    required: ['CodAmostra', 'IDPontoColeta'],
                     properties: {
+                        CodAmostra: { type: 'string' },
                         IDPontoColeta: { type: 'string' },
                     },
                 },

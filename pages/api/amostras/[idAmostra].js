@@ -3,17 +3,17 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
 
 /**
  * @swagger
- * /amostras/{codAmostra}:
+ * /amostras/{idAmostra}:
  *   parameters:
  *     - in: path
- *       name: codAmostra
+ *       name: idAmostra
  *       required: true
  *       schema:
  *         type: string
  *         format: uuid
- *       description: Código único da amostra
+ *       description: ID interno da amostra
  *   get:
- *     summary: Retorna uma amostra pelo ID
+ *     summary: Retorna uma amostra pelo ID interno
  *     tags:
  *       - Amostras
  *     responses:
@@ -26,7 +26,7 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
  *       404:
  *         description: Amostra não encontrada
  *   put:
- *     summary: Atualiza uma amostra existente
+ *     summary: Atualiza uma amostra existente (não altera IdAmostra nem createdAt)
  *     tags:
  *       - Amostras
  *     requestBody:
@@ -45,7 +45,7 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
  *       404:
  *         description: Amostra não encontrada
  *   delete:
- *     summary: Remove uma amostra pelo ID
+ *     summary: Remove uma amostra pelo ID interno
  *     tags:
  *       - Amostras
  *     responses:
@@ -58,15 +58,14 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
  *       404:
  *         description: Amostra não encontrada
  */
-
 export default async function handler(req, res) {
     await cors(req, res);
     if (req.method === 'OPTIONS') return res.status(200).end();
 
-    const { codAmostra } = req.query;
+    const { idAmostra } = req.query;
     const file = 'amostras.json';
     const amostras = await readJson(file);
-    const idx = amostras.findIndex((a) => a.CodAmostra === codAmostra);
+    const idx = amostras.findIndex((a) => a.IdAmostra === idAmostra);
 
     if (idx === -1) return res.status(404).end();
 
@@ -75,7 +74,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
-        // Mantém o createdAt original e apenas mescla demais campos
+        // Só mescla campos, sem alterar IdAmostra nem createdAt
         amostras[idx] = {
             ...amostras[idx],
             ...req.body,

@@ -36,7 +36,6 @@ import { v4 as uuidv4 } from 'uuid';
  *             schema:
  *               $ref: '#/components/schemas/Amostra'
  */
-
 export default async function handler(req, res) {
     await cors(req, res);
     if (req.method === 'OPTIONS') return res.status(200).end();
@@ -49,16 +48,20 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-        const { IDPontoColeta } = req.body;
+        const { CodAmostra, IDPontoColeta } = req.body;
 
-        // Gera timestamp local (UTC–3) em ISO
+        // Gera o ID interno
+        const IdAmostra = uuidv4();
+
+        // Timestamp local
         const now = new Date();
         const offsetMs = now.getTimezoneOffset() * 60000;
         const localTime = new Date(now.getTime() - offsetMs);
         const createdAt = localTime.toISOString().replace('Z', '+03:00');
 
         const nova = {
-            CodAmostra: uuidv4(),
+            IdAmostra,
+            CodAmostra,
             IDPontoColeta,
             createdAt,
         };
