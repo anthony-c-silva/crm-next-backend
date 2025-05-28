@@ -1,13 +1,13 @@
 {
   "/_app": "pages/_app.js",
-  "/api/amostras/[idAmostra]": "pages/api/amostras/[idAmostra].js",
-  "/api/docs": "pages/api/docs.js",
+  "/_error": "pages/_error.js",
   "/api/amostras": "pages/api/amostras.js",
+  "/api/docs": "pages/api/docs.js",
+  "/api/amostras/[idAmostra]": "pages/api/amostras/[idAmostra].js",
+  "/api/pontos/[id]": "pages/api/pontos/[id].js",
   "/api/pontos": "pages/api/pontos.js",
   "/api/swagger": "pages/api/swagger.js",
   "/docs": "pages/docs.html",
-  "/api/pontos/[id]": "pages/api/pontos/[id].js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/404": "pages/404.html"
 }
