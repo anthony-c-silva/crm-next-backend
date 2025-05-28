@@ -11,7 +11,8 @@ const options = {
                 'Documentação dos endpoints de Amostras e Pontos de Coleta',
         },
         servers: [
-            { url: 'https://crm-next-backend-1nib.vercel.app/api' || 'https://crm-next-backend-lwsj.vercel.app/api' , description: 'Servidor Web' },
+            { url: 'https://crm-next-backend-1nib.vercel.app/api' , description: 'Servidor Web_1' },
+            { url: 'https://crm-next-backend-lwsj.vercel.app/api', description: 'Servidor web_2' }
         ],
         tags: [
             { name: 'Amostras', description: 'Operações com amostras' },
