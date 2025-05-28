@@ -1,9 +1,9 @@
 {
   "/_app": "pages/_app.js",
-  "/api/amostras/[idAmostra]": "pages/api/amostras/[idAmostra].js",
-  "/_error": "pages/_error.js",
-  "/api/docs": "pages/api/docs.js",
   "/api/amostras": "pages/api/amostras.js",
+  "/api/amostras/[idAmostra]": "pages/api/amostras/[idAmostra].js",
+  "/api/docs": "pages/api/docs.js",
+  "/_error": "pages/_error.js",
   "/api/pontos/[id]": "pages/api/pontos/[id].js",
   "/api/pontos": "pages/api/pontos.js",
   "/api/swagger": "pages/api/swagger.js",
