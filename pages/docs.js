@@ -7,7 +7,7 @@ export default function Docs() {
   useEffect(() => {
     // eslint-disable-next-line no-undef
     SwaggerUIBundle({
-      url: '/swagger.json',        // <— JSON estático em public/swagger.json
+      url: '/public/swagger.json',        // <— JSON estático em public/swagger.json
       dom_id: '#swagger-ui',
       presets: [SwaggerUIBundle.presets.apis],
       layout: 'BaseLayout',
