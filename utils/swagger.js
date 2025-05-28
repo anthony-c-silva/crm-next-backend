@@ -3,21 +3,23 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import path from 'path';
 
 const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'CRM Microbiologia API',
-            version: '1.0.0',
-            description: 'Documentação dos endpoints de Amostras e Pontos de Coleta',
-        },
-        servers: [
-            { url: 'https://crm-next-backend-1nib.vercel.app/api', description: 'Servidor Vercel' },
-        ],
-        basePath: '/api',
-        tags: [
-            { name: 'Amostras', description: 'Operações com amostras' },
-            { name: 'Pontos', description: 'Operações com pontos de coleta' },
-        ],
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'CRM Microbiologia API',
+      version: '1.0.0',
+      description: 'Documentação dos endpoints de Amostras e Pontos de Coleta',
+    },
+    servers: [
+      {
+        url: 'https://crm-next-backend-1nib.vercel.app/api',
+        description: 'Servidor Vercel',
+      },
+    ],
+    tags: [
+      { name: 'Amostras', description: 'Operações com amostras' },
+      { name: 'Pontos', description: 'Operações com pontos de coleta' },
+    ],
         components: {
             schemas: {
                 Amostra: {
@@ -77,7 +79,10 @@ const options = {
             },
         },
     },
-    apis: [path.join(process.cwd(), 'pages/api/**/*.js')], 
+    apis: [
+        'pages/api/**/*.js',
+        'pages/api/*.js'
+    ],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
