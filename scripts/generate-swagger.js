@@ -1,8 +1,15 @@
 // scripts/generate-swagger.js
-import fs from 'fs';
-import path from 'path';
-import { swaggerSpec } from '../utils/swagger.js';
+const fs = require('fs')
+const path = require('path')
 
-const outPath = path.resolve(process.cwd(), 'public', 'swagger.json');
-fs.writeFileSync(outPath, JSON.stringify(swaggerSpec, null, 2), 'utf-8');
-console.log(`✅ Swagger spec gerada em ${outPath}`);
+// Importa sua configuração do swagger-jsdoc
+const { swaggerSpec } = require('../utils/swagger')
+
+const outDir = path.resolve(process.cwd(), 'public')
+if (!fs.existsSync(outDir)) {
+  fs.mkdirSync(outDir)
+}
+
+const outPath = path.join(outDir, 'swagger.json')
+fs.writeFileSync(outPath, JSON.stringify(swaggerSpec, null, 2), 'utf-8')
+console.log(`✅ Swagger spec gerada em ${outPath}`)
