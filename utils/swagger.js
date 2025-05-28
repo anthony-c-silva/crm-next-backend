@@ -13,6 +13,7 @@ const options = {
         servers: [
             { url: 'https://crm-next-backend-1nib.vercel.app/api', description: 'Servidor Vercel' },
         ],
+        basePath: '/api',
         tags: [
             { name: 'Amostras', description: 'Operações com amostras' },
             { name: 'Pontos', description: 'Operações com pontos de coleta' },
