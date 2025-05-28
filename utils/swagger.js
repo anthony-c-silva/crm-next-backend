@@ -11,7 +11,7 @@ const options = {
                 'Documentação dos endpoints de Amostras e Pontos de Coleta',
         },
         servers: [
-            { url: 'http://localhost:3002/api', description: 'Servidor local' },
+            { url: 'https://crm-next-backend-lwsj.vercel.app/api', description: 'Servidor Web' },
         ],
         tags: [
             { name: 'Amostras', description: 'Operações com amostras' },
