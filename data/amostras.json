@@ -1,0 +1,14 @@
+[
+  {
+    "IdAmostra": "462b51fc-f2aa-485e-a884-dc77bc3824eb",
+    "CodAmostra": "Abacate",
+    "IDPontoColeta": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "createdAt": "2025-05-23T14:29:17.502+03:00"
+  },
+  {
+    "IdAmostra": "90863c44-296c-4fdd-b985-edee58828636",
+    "CodAmostra": "1231qseqsad",
+    "IDPontoColeta": "ba99053d-a9bd-401c-bdd6-01e8130b36e7",
+    "createdAt": "2025-05-23T14:44:24.790+03:00"
+  }
+]

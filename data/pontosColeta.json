@@ -1,0 +1,26 @@
+[
+  {
+    "ID": "1f25f594-a76c-4b4c-9607-dca6cc33fe02",
+    "Nome": "argentra",
+    "cep": "97105120",
+    "Estado": "RS",
+    "Cidade": "Santa Maria",
+    "Bairro": "Camobi",
+    "Rua": "Rua Erly de Almeida Lima",
+    "Numero": 321,
+    "Complemento": "asd",
+    "createdAt": "2025-05-23T14:51:15.366+03:00"
+  },
+  {
+    "ID": "ba99053d-a9bd-401c-bdd6-01e8130b36e7",
+    "Nome": "asdasd",
+    "cep": "97105180",
+    "Estado": "RS",
+    "Cidade": "Santa Maria",
+    "Bairro": "Camobi",
+    "Rua": "Rua Joana R. Machado",
+    "Numero": 120,
+    "Complemento": "aaa",
+    "createdAt": "2025-05-23T14:51:55.784+03:00"
+  }
+]
