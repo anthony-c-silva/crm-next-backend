@@ -1,7 +1,6 @@
-// pages/api/swagger.js
-import { swaggerSpec } from '../../utils/swagger'
+import { swaggerSpec } from '../../../utils/swagger';
 
-export default function handler(req, res) {
-  res.setHeader('Content-Type', 'application/json')
-  res.status(200).send(swaggerSpec)
+export default async function handler(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200).json(swaggerSpec);
 }
