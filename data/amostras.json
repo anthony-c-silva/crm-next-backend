@@ -10,5 +10,17 @@
     "fotos": [],
     "anotacoes": "Amostra coletada próximo à margem, água com aparência clara.",
     "dataCadastro": "2025-07-16T11:51:48.041Z"
+  },
+  {
+    "IdAmostra": "71474293-5599-4ebe-ae35-67f92ec92130",
+    "designacaoId": "c6f89387-2f71-4e49-a21e-26321198fe58",
+    "codigo": "20250716-7990",
+    "clima": "Nublado",
+    "temperaturaAmostra": 19.8,
+    "temperaturaAmbiente": 21.5,
+    "pH": 7.1,
+    "fotos": [],
+    "anotacoes": "Amostra coletada a 1 metro de profundidade. Água com leve turbidez.",
+    "dataCadastro": "2025-07-16T16:59:48.641Z"
   }
 ]

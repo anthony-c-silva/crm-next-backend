@@ -96,7 +96,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\Users\\Anthony\\Desktop\\AUFTEK\\crm-next-backend",
+    "outputFileTracingRoot": "C:\\Users\\antho\\OneDrive\\Área de Trabalho\\AUFTEK\\crm-next-backend",
     "experimental": {
       "nodeMiddleware": false,
       "cacheLife": {
@@ -154,7 +154,7 @@
       "middlewarePrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 15,
+      "cpus": 11,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -278,11 +278,11 @@
     "htmlLimitedBots": "Mediapartners-Google|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti",
     "bundlePagesRouterDependencies": false,
     "turbopack": {
-      "root": "C:\\Users\\Anthony\\Desktop\\AUFTEK\\crm-next-backend"
+      "root": "C:\\Users\\antho\\OneDrive\\Área de Trabalho\\AUFTEK\\crm-next-backend"
     },
     "configFileName": "next.config.js"
   },
-  "appDir": "C:\\Users\\Anthony\\Desktop\\AUFTEK\\crm-next-backend",
+  "appDir": "C:\\Users\\antho\\OneDrive\\Área de Trabalho\\AUFTEK\\crm-next-backend",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

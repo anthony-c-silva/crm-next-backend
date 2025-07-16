@@ -9,5 +9,16 @@
     },
     "statusContaminacao": "Livre",
     "dataCadastro": "2025-07-16T11:48:00.795Z"
+  },
+  {
+    "id": "a4c1fb5b-7378-439a-9c50-00e32018fb8b",
+    "nome": "Estação de Tratamento de Água - Centro",
+    "endereco": "Av. Ipiranga, 1200 - Centro, Santa Maria - RS",
+    "coordenadas": {
+      "latitude": -29.6842,
+      "longitude": -53.8069
+    },
+    "statusContaminacao": "Sob Análise",
+    "dataCadastro": "2025-07-16T16:58:09.666Z"
   }
 ]

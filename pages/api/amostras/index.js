@@ -34,7 +34,11 @@ import { v4 as uuidv4 } from 'uuid';
  * schema:
  * $ref: '#/components/schemas/Amostra'
  * '400':
- * description: Dados inválidos ou faltando
+ * description: Dados inválidos ou código de amostra inválido/utilizado.
+ * '404':
+ * description: Designação não encontrada.
+ * '409':
+ * description: O código de amostra informado já foi utilizado.
  */
 export default async function handler(req, res) {
     await cors(req, res);
@@ -64,6 +68,25 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'Campos obrigatórios faltando.' });
         }
 
+        const amostras = await readJson(amostrasFile);
+        const designacoes = await readJson(designacoesFile);
+
+        // --- VALIDAÇÃO DO CÓDIGO DA AMOSTRA ---
+        const designacao = designacoes.find(d => d.id === designacaoId);
+        if (!designacao) {
+            return res.status(404).json({ error: 'Designação associada não encontrada.' });
+        }
+
+        if (!designacao.codigosAmostra || !designacao.codigosAmostra.includes(codigo)) {
+            return res.status(400).json({ error: `O código de amostra '${codigo}' não é válido para esta designação.` });
+        }
+
+        const isCodeUsed = amostras.some(a => a.designacaoId === designacaoId && a.codigo === codigo);
+        if (isCodeUsed) {
+            return res.status(409).json({ error: `O código de amostra '${codigo}' já foi utilizado.` });
+        }
+        // --- FIM DA VALIDAÇÃO ---
+
         const IdAmostra = uuidv4();
         const now = new Date();
         const offsetMs = now.getTimezoneOffset() * 60000;
@@ -83,21 +106,15 @@ export default async function handler(req, res) {
             dataCadastro,
         };
 
-        const amostras = await readJson(amostrasFile);
         amostras.push(novaAmostra);
         await writeJson(amostrasFile, amostras);
 
-        const designacoes = await readJson(designacoesFile);
+        // Atualiza status da designação se todas as amostras foram coletadas
         const designacaoIdx = designacoes.findIndex(d => d.id === designacaoId);
-
-        if (designacaoIdx !== -1) {
-            const designacao = designacoes[designacaoIdx];
-            const amostrasDaDesignacao = amostras.filter(a => a.designacaoId === designacaoId);
-
-            if (amostrasDaDesignacao.length >= designacao.quantidadeAmostras) {
-                designacoes[designacaoIdx].status = 'Coletada';
-                await writeJson(designacoesFile, designacoes);
-            }
+        const amostrasDaDesignacao = amostras.filter(a => a.designacaoId === designacaoId);
+        if (amostrasDaDesignacao.length >= designacao.quantidadeAmostras) {
+            designacoes[designacaoIdx].status = 'Coletada';
+            await writeJson(designacoesFile, designacoes);
         }
 
         return res.status(201).json(novaAmostra);

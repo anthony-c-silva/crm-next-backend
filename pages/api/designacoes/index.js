@@ -3,6 +3,19 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
+ * Helper function to generate a unique sample code in the format YYYYMMDD-XXXX.
+ * @returns {string} A unique sample code.
+ */
+const generateSampleCode = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const randomNum = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+    return `${year}${month}${day}-${randomNum}`;
+};
+
+/**
  * @swagger
  * /designacoes:
  * get:
@@ -59,11 +72,18 @@ export default async function handler(req, res) {
         const localTime = new Date(now.getTime() - localOffsetMs);
         const dataCriacao = localTime.toISOString();
 
+        // Gera a lista de códigos de amostra
+        const codigosAmostra = [];
+        for (let i = 0; i < quantidadeAmostras; i++) {
+            codigosAmostra.push(generateSampleCode());
+        }
+
         const novaDesignacao = {
             id: uuidv4(),
             pontoColetaId,
             coletorId,
             quantidadeAmostras,
+            codigosAmostra, // Novo campo com os códigos gerados
             instrucoes,
             status: 'Não coletada',
             dataCriacao,

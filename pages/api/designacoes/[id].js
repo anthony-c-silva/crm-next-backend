@@ -2,8 +2,24 @@ import cors from '../../../utils/cors';
 import { readJson, writeJson } from '../../../utils/jsonHandler';
 
 /**
+ * Helper function to generate a unique sample code in the format YYYYMMDD-XXXX.
+ * @returns {string} A unique sample code.
+ */
+const generateSampleCode = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const randomNum = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+    return `${year}${month}${day}-${randomNum}`;
+};
+
+/**
  * @swagger
  * /designacoes/{id}:
+ * get:
+ * summary: Retorna uma designação pelo ID
+ * tags: [Designações]
  * parameters:
  * - in: path
  * name: id
@@ -12,9 +28,6 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
  * type: string
  * format: uuid
  * description: ID único da designação
- * get:
- * summary: Retorna uma designação pelo ID
- * tags: [Designações]
  * responses:
  * '200':
  * description: Objeto Designacao
@@ -27,6 +40,14 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
  * put:
  * summary: Atualiza uma designação existente
  * tags: [Designações]
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * format: uuid
+ * description: ID único da designação
  * requestBody:
  * required: true
  * content:
@@ -45,6 +66,14 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
  * delete:
  * summary: Remove uma designação pelo ID
  * tags: [Designações]
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * format: uuid
+ * description: ID único da designação
  * responses:
  * '200':
  * description: Designação removida
@@ -73,10 +102,23 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
-        const { id: bodyId, dataCriacao, ...updateData } = req.body;
+        const { id: bodyId, dataCriacao, codigosAmostra, ...updateData } = req.body;
         
+        const originalDesignacao = designacoes[idx];
+
+        // Se a quantidade de amostras for alterada, gera uma nova lista de códigos.
+        // ATENÇÃO: Isso substitui os códigos antigos. Em um sistema real, seria preciso
+        // verificar se algum código já foi usado antes de permitir a alteração.
+        if (updateData.quantidadeAmostras && updateData.quantidadeAmostras !== originalDesignacao.quantidadeAmostras) {
+            const newCodes = [];
+            for (let i = 0; i < updateData.quantidadeAmostras; i++) {
+                newCodes.push(generateSampleCode());
+            }
+            updateData.codigosAmostra = newCodes;
+        }
+
         designacoes[idx] = {
-            ...designacoes[idx],
+            ...originalDesignacao,
             ...updateData,
         };
         await writeJson(file, designacoes);

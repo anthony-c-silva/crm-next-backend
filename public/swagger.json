@@ -46,7 +46,7 @@
           },
           "codigo": {
             "type": "string",
-            "description": "Código da amostra"
+            "description": "Código da amostra, selecionado da lista de códigos disponíveis na designação."
           },
           "clima": {
             "type": "string",
@@ -112,7 +112,7 @@
           },
           "codigo": {
             "type": "string",
-            "description": "Código da amostra"
+            "description": "Código da amostra, selecionado da lista de códigos disponíveis na designação."
           },
           "clima": {
             "type": "string",
@@ -258,6 +258,13 @@
           "quantidadeAmostras": {
             "type": "integer",
             "description": "Quantidade de amostras a serem coletadas"
+          },
+          "codigosAmostra": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Códigos únicos gerados para cada amostra a ser coletada (gerado automaticamente)"
           },
           "instrucoes": {
             "type": "string",
