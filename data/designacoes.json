@@ -1,0 +1,11 @@
+[
+  {
+    "id": "09a0d886-9355-4b00-a736-ca2b72bd688e",
+    "pontoColetaId": "873350f4-c322-4622-9359-0eb5795c0ef8",
+    "coletorId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+    "quantidadeAmostras": 5,
+    "instrucoes": "Coletar amostra de água do lago principal do campus.",
+    "status": "Não coletada",
+    "dataCriacao": "2025-07-16T11:50:32.788Z"
+  }
+]

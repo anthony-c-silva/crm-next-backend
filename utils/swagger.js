@@ -1,88 +1,313 @@
 // utils/swagger.js
 import swaggerJSDoc from 'swagger-jsdoc';
-import path from 'path';
 
 const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'CRM Microbiologia API',
-      version: '1.0.0',
-      description: 'Documentação dos endpoints de Amostras e Pontos de Coleta',
-    },
-    servers: [
-      {
-        url: 'https://crm-next-backend-1nib.vercel.app/api',
-        description: 'Servidor Vercel',
-      },
-    ],
-    tags: [
-      { name: 'Amostras', description: 'Operações com amostras' },
-      { name: 'Pontos', description: 'Operações com pontos de coleta' },
-    ],
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'CRM Microbiologia API',
+            version: '1.0.0',
+            description:
+                'Documentação dos endpoints de Amostras, Pontos de Coleta e Designações',
+        },
+        servers: [
+            {
+                url: 'https://crm-next-backend-1nib.vercel.app/api',
+                description: 'Servidor Vercel',
+            },
+            {
+                url: 'http://localhost:3002/api',
+                description: 'Servidor Local',
+            },
+        ],
+        tags: [
+            { name: 'Amostras', description: 'Operações com amostras' },
+            { name: 'Pontos', description: 'Operações com pontos de coleta' },
+            {
+                name: 'Designações',
+                description: 'Operações com designações de coleta',
+            },
+        ],
         components: {
             schemas: {
+                // --- Schemas de Amostra ---
                 Amostra: {
                     type: 'object',
                     properties: {
-                        IdAmostra: { type: 'string', format: 'uuid' },
-                        CodAmostra: { type: 'string' },
-                        IDPontoColeta: { type: 'string' },
-                        createdAt: { type: 'string', format: 'date-time' },
+                        IdAmostra: {
+                            type: 'string',
+                            format: 'uuid',
+                            description:
+                                'ID interno da amostra (gerado automaticamente)',
+                        },
+                        designacaoId: {
+                            type: 'string',
+                            format: 'uuid',
+                            description: 'ID da designação associada',
+                        },
+                        codigo: {
+                            type: 'string',
+                            description: 'Código da amostra',
+                        },
+                        clima: {
+                            type: 'string',
+                            enum: [
+                                'Ensolarado',
+                                'Chuviscado',
+                                'Chuvoso',
+                                'Nublado',
+                            ],
+                            description:
+                                'Condição climática no momento da coleta',
+                        },
+                        temperaturaAmostra: {
+                            type: 'number',
+                            format: 'float',
+                            description:
+                                'Temperatura da amostra em graus Celsius',
+                        },
+                        temperaturaAmbiente: {
+                            type: 'number',
+                            format: 'float',
+                            description:
+                                'Temperatura ambiente em graus Celsius',
+                        },
+                        pH: {
+                            type: 'number',
+                            format: 'float',
+                            minimum: 0,
+                            maximum: 14,
+                            description: 'Nível de pH da amostra',
+                        },
+                        fotos: {
+                            type: 'array',
+                            items: { type: 'string', format: 'binary' },
+                            description: 'Lista de fotos da amostra',
+                        },
+                        anotacoes: {
+                            type: 'string',
+                            description: 'Anotações adicionais',
+                        },
+                        dataCadastro: {
+                            type: 'string',
+                            format: 'date-time',
+                            description:
+                                'Data de cadastro da amostra (gerado automaticamente)',
+                        },
                     },
                 },
                 AmostraInput: {
                     type: 'object',
-                    required: ['CodAmostra', 'IDPontoColeta'],
+                    required: [
+                        'designacaoId',
+                        'codigo',
+                        'clima',
+                        'temperaturaAmostra',
+                        'temperaturaAmbiente',
+                        'pH',
+                    ],
                     properties: {
-                        CodAmostra: { type: 'string' },
-                        IDPontoColeta: { type: 'string' },
+                        designacaoId: {
+                            type: 'string',
+                            format: 'uuid',
+                            description: 'ID da designação associada',
+                        },
+                        codigo: {
+                            type: 'string',
+                            description: 'Código da amostra',
+                        },
+                        clima: {
+                            type: 'string',
+                            enum: [
+                                'Ensolarado',
+                                'Chuviscado',
+                                'Chuvoso',
+                                'Nublado',
+                            ],
+                            description:
+                                'Condição climática no momento da coleta',
+                        },
+                        temperaturaAmostra: {
+                            type: 'number',
+                            format: 'float',
+                            description:
+                                'Temperatura da amostra em graus Celsius',
+                        },
+                        temperaturaAmbiente: {
+                            type: 'number',
+                            format: 'float',
+                            description:
+                                'Temperatura ambiente em graus Celsius',
+                        },
+                        pH: {
+                            type: 'number',
+                            format: 'float',
+                            minimum: 0,
+                            maximum: 14,
+                            description: 'Nível de pH da amostra',
+                        },
+                        fotos: {
+                            type: 'array',
+                            items: { type: 'string', format: 'binary' },
+                            description: 'Lista de fotos da amostra (opcional)',
+                        },
+                        anotacoes: {
+                            type: 'string',
+                            description: 'Anotações adicionais (opcional)',
+                        },
                     },
                 },
+                // --- Schemas de Ponto de Coleta ---
                 Ponto: {
                     type: 'object',
                     properties: {
-                        ID: { type: 'string', format: 'uuid' },
-                        Nome: { type: 'string' },
-                        cep: { type: 'string' },
-                        Estado: { type: 'string' },
-                        Cidade: { type: 'string' },
-                        Bairro: { type: 'string' },
-                        Rua: { type: 'string' },
-                        Numero: { type: 'integer' },
-                        Complemento: { type: 'string' },
-                        createdAt: { type: 'string', format: 'date-time' },
+                        id: {
+                            type: 'string',
+                            format: 'uuid',
+                            description:
+                                'ID único do ponto de coleta (gerado automaticamente)',
+                        },
+                        nome: {
+                            type: 'string',
+                            description:
+                                'Nome de identificação do ponto de coleta',
+                        },
+                        endereco: {
+                            type: 'string',
+                            description: 'Endereço completo do ponto',
+                        },
+                        coordenadas: {
+                            type: 'object',
+                            properties: {
+                                latitude: { type: 'number', format: 'float' },
+                                longitude: { type: 'number', format: 'float' },
+                            },
+                        },
+                        statusContaminacao: {
+                            type: 'string',
+                            description: 'Status de contaminação do ponto',
+                            example: 'Livre',
+                        },
+                        dataCadastro: {
+                            type: 'string',
+                            format: 'date-time',
+                            description:
+                                'Data de cadastro do ponto (gerado automaticamente)',
+                        },
                     },
                 },
                 PontoInput: {
                     type: 'object',
                     required: [
-                        'Nome',
-                        'cep',
-                        'Estado',
-                        'Cidade',
-                        'Bairro',
-                        'Rua',
-                        'Numero',
+                        'nome',
+                        'endereco',
+                        'coordenadas',
+                        'statusContaminacao',
                     ],
                     properties: {
-                        Nome: { type: 'string' },
-                        cep: { type: 'string' },
-                        Estado: { type: 'string' },
-                        Cidade: { type: 'string' },
-                        Bairro: { type: 'string' },
-                        Rua: { type: 'string' },
-                        Numero: { type: 'integer' },
-                        Complemento: { type: 'string' },
+                        nome: {
+                            type: 'string',
+                            description:
+                                'Nome de identificação do ponto de coleta',
+                        },
+                        endereco: {
+                            type: 'string',
+                            description: 'Endereço completo do ponto',
+                        },
+                        coordenadas: {
+                            type: 'object',
+                            required: ['latitude', 'longitude'],
+                            properties: {
+                                latitude: { type: 'number', format: 'float' },
+                                longitude: { type: 'number', format: 'float' },
+                            },
+                        },
+                        statusContaminacao: {
+                            type: 'string',
+                            description: 'Status de contaminação do ponto',
+                            example: 'Livre',
+                        },
+                    },
+                },
+                // --- Schemas de Designação ---
+                Designacao: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'string',
+                            format: 'uuid',
+                            description: 'ID único da designação',
+                        },
+                        pontoColetaId: {
+                            type: 'string',
+                            format: 'uuid',
+                            description: 'ID do ponto de coleta associado',
+                        },
+                        coletorId: {
+                            type: 'string',
+                            format: 'uuid',
+                            description: 'ID do coletor responsável',
+                        },
+                        quantidadeAmostras: {
+                            type: 'integer',
+                            description:
+                                'Quantidade de amostras a serem coletadas',
+                        },
+                        instrucoes: {
+                            type: 'string',
+                            description: 'Instruções para a coleta',
+                        },
+                        status: {
+                            type: 'string',
+                            enum: ['Coletada', 'Não coletada'],
+                            description: 'Status da designação',
+                        },
+                        dataCriacao: {
+                            type: 'string',
+                            format: 'date-time',
+                            description: 'Data de criação da designação',
+                        },
+                    },
+                },
+                DesignacaoInput: {
+                    type: 'object',
+                    required: [
+                        'pontoColetaId',
+                        'coletorId',
+                        'quantidadeAmostras',
+                        'instrucoes',
+                    ],
+                    properties: {
+                        pontoColetaId: { type: 'string', format: 'uuid' },
+                        coletorId: { type: 'string', format: 'uuid' },
+                        quantidadeAmostras: { type: 'integer' },
+                        instrucoes: { type: 'string' },
+                    },
+                },
+                DesignacaoUpdateInput: {
+                    type: 'object',
+                    required: [
+                        'pontoColetaId',
+                        'coletorId',
+                        'quantidadeAmostras',
+                        'instrucoes',
+                        'status',
+                    ],
+                    properties: {
+                        pontoColetaId: { type: 'string', format: 'uuid' },
+                        coletorId: { type: 'string', format: 'uuid' },
+                        quantidadeAmostras: { type: 'integer' },
+                        instrucoes: { type: 'string' },
+                        status: {
+                            type: 'string',
+                            enum: ['Coletada', 'Não coletada'],
+                        },
                     },
                 },
             },
         },
     },
-    apis: [
-        'pages/api/**/*.js',
-        'pages/api/*.js'
-    ],
+    apis: ['pages/api/**/*.js', 'pages/api/*.js'],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);

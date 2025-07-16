@@ -23,6 +23,14 @@
       "namedRegex": "^/api/amostras/(?<nxtPidAmostra>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/api/designacoes/[id]",
+      "regex": "^/api/designacoes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/designacoes/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/api/pontos/[id]",
       "regex": "^/api/pontos/([^/]+?)(?:/)?$",
       "routeKeys": {
