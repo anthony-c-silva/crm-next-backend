@@ -3,19 +3,6 @@ import { readJson, writeJson } from '../../../utils/jsonHandler';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
- * Helper function to generate a unique sample code in the format YYYYMMDD-XXXX.
- * @returns {string} A unique sample code.
- */
-const generateSampleCode = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const randomNum = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
-    return `${year}${month}${day}-${randomNum}`;
-};
-
-/**
  * @swagger
  * /designacoes:
  * get:
@@ -31,7 +18,7 @@ const generateSampleCode = () => {
  * items:
  * $ref: '#/components/schemas/Designacao'
  * post:
- * summary: Cria uma nova designação
+ * summary: Cria uma nova designação com códigos de amostra manuais
  * tags: [Designações]
  * requestBody:
  * required: true
@@ -61,32 +48,50 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-        const { pontoColetaId, coletorId, quantidadeAmostras, instrucoes } = req.body;
+        // Campos esperados do corpo da requisição
+        const {
+            pontoColetaId,
+            coletorId,
+            codigosAmostra,
+            instrucoes,
+            dataColeta,
+        } = req.body;
 
-        if (!pontoColetaId || !coletorId || !quantidadeAmostras || !instrucoes) {
-            return res.status(400).json({ error: 'Campos obrigatórios faltando.' });
+        // Validação dos campos obrigatórios
+        if (
+            !pontoColetaId ||
+            !coletorId ||
+            !instrucoes ||
+            !dataColeta ||
+            !Array.isArray(codigosAmostra) ||
+            codigosAmostra.length === 0
+        ) {
+            return res
+                .status(400)
+                .json({
+                    error: 'Campos obrigatórios faltando ou inválidos: pontoColetaId, coletorId, instrucoes, dataColeta e um array de codigosAmostra com pelo menos um código.',
+                });
         }
 
+        // Gera a data de criação automaticamente
         const now = new Date();
         const localOffsetMs = now.getTimezoneOffset() * 60000;
         const localTime = new Date(now.getTime() - localOffsetMs);
         const dataCriacao = localTime.toISOString();
 
-        // Gera a lista de códigos de amostra
-        const codigosAmostra = [];
-        for (let i = 0; i < quantidadeAmostras; i++) {
-            codigosAmostra.push(generateSampleCode());
-        }
+        // Calcula a quantidade de amostras com base no tamanho do array
+        const quantidadeAmostras = codigosAmostra.length;
 
         const novaDesignacao = {
             id: uuidv4(),
             pontoColetaId,
             coletorId,
-            quantidadeAmostras,
-            codigosAmostra, // Novo campo com os códigos gerados
+            dataColeta, // Novo campo para a data agendada da coleta
+            quantidadeAmostras, // Campo agora é calculado
+            codigosAmostra, // Array de códigos fornecido pelo usuário
             instrucoes,
-            status: 'Não coletada',
-            dataCriacao,
+            status: 'false',
+            dataCriacao, // Campo automático
         };
 
         designacoes.push(novaDesignacao);

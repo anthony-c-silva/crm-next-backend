@@ -1,25 +1,18 @@
 [
   {
-    "id": "09a0d886-9355-4b00-a736-ca2b72bd688e",
-    "pontoColetaId": "873350f4-c322-4622-9359-0eb5795c0ef8",
+    "id": "9e413029-74bf-4359-8c74-df3ef546bcbb",
+    "pontoColetaId": "f24ec630-61dd-49ed-84ff-7b2fdb5210fc",
     "coletorId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
-    "quantidadeAmostras": 5,
-    "instrucoes": "Coletar amostra de água do lago principal do campus.",
-    "status": "Não coletada",
-    "dataCriacao": "2025-07-16T11:50:32.788Z"
-  },
-  {
-    "id": "c6f89387-2f71-4e49-a21e-26321198fe58",
-    "pontoColetaId": "873350f4-c322-4622-9359-0eb5795c0ef8",
-    "coletorId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
-    "quantidadeAmostras": 3,
+    "dataColeta": "19-07-2025",
+    "quantidadeAmostras": 4,
     "codigosAmostra": [
-      "20250716-7990",
-      "20250716-0353",
-      "20250716-0055"
+      "E01A",
+      "E02A",
+      "A01A",
+      "A02A"
     ],
-    "instrucoes": "Coletar 3 amostras de 500ml cada, em diferentes profundidades.",
-    "status": "Não coletada",
-    "dataCriacao": "2025-07-16T16:57:59.840Z"
+    "instrucoes": "Coletar antes e depois da limpeza dos filtros. Usar luvas.",
+    "status": "false",
+    "dataCriacao": "2025-07-18T15:40:56.473Z"
   }
 ]

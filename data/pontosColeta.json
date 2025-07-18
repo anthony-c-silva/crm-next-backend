@@ -1,24 +1,13 @@
 [
   {
-    "id": "873350f4-c322-4622-9359-0eb5795c0ef8",
-    "nome": "UFSM - Campus Sede",
-    "endereco": "Av. Roraima, 1000 - Camobi, Santa Maria - RS",
+    "id": "f24ec630-61dd-49ed-84ff-7b2fdb5210fc",
+    "nome": "Caixa d'água - Bloco 74C",
+    "endereco": "Av. Roraima, 1000, Prédio 74C - Camobi, Santa Maria - RS",
     "coordenadas": {
-      "latitude": -29.7213,
-      "longitude": -53.7142
+      "latitude": -29.7155,
+      "longitude": -53.7163
     },
-    "statusContaminacao": "Livre",
-    "dataCadastro": "2025-07-16T11:48:00.795Z"
-  },
-  {
-    "id": "a4c1fb5b-7378-439a-9c50-00e32018fb8b",
-    "nome": "Estação de Tratamento de Água - Centro",
-    "endereco": "Av. Ipiranga, 1200 - Centro, Santa Maria - RS",
-    "coordenadas": {
-      "latitude": -29.6842,
-      "longitude": -53.8069
-    },
-    "statusContaminacao": "Sob Análise",
-    "dataCadastro": "2025-07-16T16:58:09.666Z"
+    "statusContaminacao": "Não verificado",
+    "dataCadastro": "2025-07-18T15:40:42.776Z"
   }
 ]

@@ -255,16 +255,21 @@
             "format": "uuid",
             "description": "ID do coletor responsável"
           },
+          "dataColeta": {
+            "type": "string",
+            "format": "date",
+            "description": "Data agendada para a coleta. Ex: 2024-12-25"
+          },
           "quantidadeAmostras": {
             "type": "integer",
-            "description": "Quantidade de amostras a serem coletadas"
+            "description": "Quantidade de amostras a serem coletadas (calculado automaticamente)"
           },
           "codigosAmostra": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Códigos únicos gerados para cada amostra a ser coletada (gerado automaticamente)"
+            "description": "Códigos únicos definidos pelo usuário para cada amostra a ser coletada."
           },
           "instrucoes": {
             "type": "string",
@@ -281,7 +286,7 @@
           "dataCriacao": {
             "type": "string",
             "format": "date-time",
-            "description": "Data de criação da designação"
+            "description": "Data de criação da designação (gerado automaticamente)"
           }
         }
       },
@@ -290,8 +295,9 @@
         "required": [
           "pontoColetaId",
           "coletorId",
-          "quantidadeAmostras",
-          "instrucoes"
+          "codigosAmostra",
+          "instrucoes",
+          "dataColeta"
         ],
         "properties": {
           "pontoColetaId": {
@@ -302,8 +308,17 @@
             "type": "string",
             "format": "uuid"
           },
-          "quantidadeAmostras": {
-            "type": "integer"
+          "dataColeta": {
+            "type": "string",
+            "format": "date",
+            "description": "Data em que a coleta deve ser realizada. Ex: 2024-12-25"
+          },
+          "codigosAmostra": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array com os códigos que serão usados para as amostras."
           },
           "instrucoes": {
             "type": "string"
@@ -312,13 +327,6 @@
       },
       "DesignacaoUpdateInput": {
         "type": "object",
-        "required": [
-          "pontoColetaId",
-          "coletorId",
-          "quantidadeAmostras",
-          "instrucoes",
-          "status"
-        ],
         "properties": {
           "pontoColetaId": {
             "type": "string",
@@ -328,8 +336,17 @@
             "type": "string",
             "format": "uuid"
           },
-          "quantidadeAmostras": {
-            "type": "integer"
+          "dataColeta": {
+            "type": "string",
+            "format": "date",
+            "description": "Nova data para a coleta. Ex: 2024-12-26"
+          },
+          "codigosAmostra": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Nova lista de códigos para as amostras."
           },
           "instrucoes": {
             "type": "string"

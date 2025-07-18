@@ -2,19 +2,6 @@ import cors from '../../../utils/cors';
 import { readJson, writeJson } from '../../../utils/jsonHandler';
 
 /**
- * Helper function to generate a unique sample code in the format YYYYMMDD-XXXX.
- * @returns {string} A unique sample code.
- */
-const generateSampleCode = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const randomNum = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
-    return `${year}${month}${day}-${randomNum}`;
-};
-
-/**
  * @swagger
  * /designacoes/{id}:
  * get:
@@ -102,23 +89,23 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
-        const { id: bodyId, dataCriacao, codigosAmostra, ...updateData } = req.body;
-        
-        const originalDesignacao = designacoes[idx];
+        const {
+            id: bodyId,
+            dataCriacao,
+            quantidadeAmostras,
+            ...updateData
+        } = req.body;
 
-        // Se a quantidade de amostras for alterada, gera uma nova lista de códigos.
-        // ATENÇÃO: Isso substitui os códigos antigos. Em um sistema real, seria preciso
-        // verificar se algum código já foi usado antes de permitir a alteração.
-        if (updateData.quantidadeAmostras && updateData.quantidadeAmostras !== originalDesignacao.quantidadeAmostras) {
-            const newCodes = [];
-            for (let i = 0; i < updateData.quantidadeAmostras; i++) {
-                newCodes.push(generateSampleCode());
-            }
-            updateData.codigosAmostra = newCodes;
+        // Se o array de códigos for atualizado, recalcula a quantidade
+        if (
+            updateData.codigosAmostra &&
+            Array.isArray(updateData.codigosAmostra)
+        ) {
+            updateData.quantidadeAmostras = updateData.codigosAmostra.length;
         }
 
         designacoes[idx] = {
-            ...originalDesignacao,
+            ...designacoes[idx],
             ...updateData,
         };
         await writeJson(file, designacoes);

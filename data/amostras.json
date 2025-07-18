@@ -1,26 +1,14 @@
 [
   {
-    "IdAmostra": "e62fc7d1-1c1a-4e1c-b895-9b3dbd7375cb",
-    "designacaoId": "09a0d886-9355-4b00-a736-ca2b72bd688e",
-    "codigo": "UFSM-LAGO-01",
+    "IdAmostra": "8109a9c2-d4aa-4e01-a184-530ba235c209",
+    "designacaoId": "9e413029-74bf-4359-8c74-df3ef546bcbb",
+    "codigo": "E01A",
     "clima": "Ensolarado",
-    "temperaturaAmostra": 22.5,
-    "temperaturaAmbiente": 28,
-    "pH": 6.8,
+    "temperaturaAmostra": 24.1,
+    "temperaturaAmbiente": 31.5,
+    "pH": 7,
     "fotos": [],
-    "anotacoes": "Amostra coletada próximo à margem, água com aparência clara.",
-    "dataCadastro": "2025-07-16T11:51:48.041Z"
-  },
-  {
-    "IdAmostra": "71474293-5599-4ebe-ae35-67f92ec92130",
-    "designacaoId": "c6f89387-2f71-4e49-a21e-26321198fe58",
-    "codigo": "20250716-7990",
-    "clima": "Nublado",
-    "temperaturaAmostra": 19.8,
-    "temperaturaAmbiente": 21.5,
-    "pH": 7.1,
-    "fotos": [],
-    "anotacoes": "Amostra coletada a 1 metro de profundidade. Água com leve turbidez.",
-    "dataCadastro": "2025-07-16T16:59:48.641Z"
+    "anotacoes": "Coleta realizada antes da limpeza do filtro. Nenhuma anormalidade visual.",
+    "dataCadastro": "2025-07-18T15:42:22.399Z"
   }
 ]
