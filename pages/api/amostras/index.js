@@ -71,7 +71,6 @@ export default async function handler(req, res) {
         const amostras = await readJson(amostrasFile);
         const designacoes = await readJson(designacoesFile);
 
-        // --- VALIDAÇÃO DO CÓDIGO DA AMOSTRA ---
         const designacao = designacoes.find(d => d.id === designacaoId);
         if (!designacao) {
             return res.status(404).json({ error: 'Designação associada não encontrada.' });
@@ -85,7 +84,6 @@ export default async function handler(req, res) {
         if (isCodeUsed) {
             return res.status(409).json({ error: `O código de amostra '${codigo}' já foi utilizado.` });
         }
-        // --- FIM DA VALIDAÇÃO ---
 
         const IdAmostra = uuidv4();
         const now = new Date();
@@ -96,6 +94,7 @@ export default async function handler(req, res) {
         const novaAmostra = {
             IdAmostra,
             designacaoId,
+            idExperimento: null, 
             codigo,
             clima,
             temperaturaAmostra,
@@ -109,7 +108,6 @@ export default async function handler(req, res) {
         amostras.push(novaAmostra);
         await writeJson(amostrasFile, amostras);
 
-        // Atualiza status da designação se todas as amostras foram coletadas
         const designacaoIdx = designacoes.findIndex(d => d.id === designacaoId);
         const amostrasDaDesignacao = amostras.filter(a => a.designacaoId === designacaoId);
         if (amostrasDaDesignacao.length >= designacao.quantidadeAmostras) {

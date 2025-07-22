@@ -3,7 +3,7 @@
   "info": {
     "title": "CRM Microbiologia API",
     "version": "1.0.0",
-    "description": "Documentação dos endpoints de Amostras, Pontos de Coleta e Designações"
+    "description": "Documentação dos endpoints de Amostras, Pontos de Coleta, Designações e Experimentos"
   },
   "servers": [
     {
@@ -27,6 +27,10 @@
     {
       "name": "Designações",
       "description": "Operações com designações de coleta"
+    },
+    {
+      "name": "Experimentos",
+      "description": "Operações com experimentos"
     }
   ],
   "components": {
@@ -38,6 +42,12 @@
             "type": "string",
             "format": "uuid",
             "description": "ID interno da amostra (gerado automaticamente)"
+          },
+          "idExperimento": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID do experimento associado a esta amostra (nulo se não houver)",
+            "nullable": true
           },
           "designacaoId": {
             "type": "string",
@@ -357,6 +367,169 @@
               "Coletada",
               "Não coletada"
             ]
+          }
+        }
+      },
+      "LightSensorConfigDetail": {
+        "type": "object",
+        "properties": {
+          "astep": {
+            "type": "integer"
+          },
+          "atime": {
+            "type": "integer"
+          },
+          "gain": {
+            "type": "integer"
+          }
+        }
+      },
+      "ContagemBacteriana": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bacteria_alvo_1": {
+            "type": "integer"
+          },
+          "bacteria_alvo_2": {
+            "type": "integer"
+          }
+        }
+      },
+      "Experimento": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID único do experimento"
+          },
+          "numeroSerie": {
+            "type": "string"
+          },
+          "general_info": {
+            "type": "object",
+            "properties": {
+              "analysisId": {
+                "type": "string"
+              },
+              "end_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "protocolId": {
+                "type": "string"
+              },
+              "amostraId": {
+                "type": "string",
+                "description": "ID da amostra associada a este experimento"
+              },
+              "start_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "status": {
+                "type": "string"
+              }
+            }
+          },
+          "light_sensor_config": {
+            "type": "object",
+            "properties": {
+              "uv": {
+                "$ref": "#/components/schemas/LightSensorConfigDetail"
+              },
+              "visible_1": {
+                "$ref": "#/components/schemas/LightSensorConfigDetail"
+              },
+              "visible_2": {
+                "$ref": "#/components/schemas/LightSensorConfigDetail"
+              }
+            }
+          },
+          "force_end": {
+            "type": "boolean"
+          },
+          "codigo_amostra": {
+            "type": "string"
+          },
+          "contagem_bacteriana_real": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContagemBacteriana"
+            }
+          },
+          "visivel": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ExperimentoInput": {
+        "type": "object",
+        "description": "Corpo completo do objeto Experimento, geralmente vindo de outra API.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID único do experimento (opcional, será gerado se não for fornecido)"
+          },
+          "numeroSerie": {
+            "type": "string"
+          },
+          "general_info": {
+            "type": "object",
+            "properties": {
+              "analysisId": {
+                "type": "string"
+              },
+              "end_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "protocolId": {
+                "type": "string"
+              },
+              "amostraId": {
+                "type": "string",
+                "description": "ID da amostra associada a este experimento"
+              },
+              "start_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "status": {
+                "type": "string"
+              }
+            }
+          },
+          "light_sensor_config": {
+            "type": "object",
+            "properties": {
+              "uv": {
+                "$ref": "#/components/schemas/LightSensorConfigDetail"
+              },
+              "visible_1": {
+                "$ref": "#/components/schemas/LightSensorConfigDetail"
+              },
+              "visible_2": {
+                "$ref": "#/components/schemas/LightSensorConfigDetail"
+              }
+            }
+          },
+          "force_end": {
+            "type": "boolean"
+          },
+          "codigo_amostra": {
+            "type": "string"
+          },
+          "contagem_bacteriana_real": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContagemBacteriana"
+            }
+          },
+          "visivel": {
+            "type": "boolean"
           }
         }
       }
